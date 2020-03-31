@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	<h3>{{ page_name }}</h3>
+
+	{% for oferta in ofertes_llista %}
+
+		<div class="card border-info mb-3">
+			<h5 class="card-header">{{oferta.titol}}</h5>
+			<div class="card-body">
+				<p class="card-text text-secondary">{{ oferta.resum }}</p>
+				<cite class="text-secondary">
+					<a href="{{ path('oferta_detall', {id:oferta.id}) }}" class="card-link text-info">veure detall</a>
+				</cite>
+				<hr>
+				<div class="text-right">
+					<cite class="text-secondary">
+						Publicada el&nbsp;{{oferta.dataPublicacio|date("d/m/Y")}}&nbsp;por&nbsp;<a href="{{ path('empresa_detall', {id:oferta.empresa.id}) }}" class="card-link text-info">{{ oferta.empresa.nom }}</a>
+					</cite>
+				</div>
+			</div>
+		</div>
+
+	{% endfor %}
+
+{% endblock %}

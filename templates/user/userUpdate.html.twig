@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	<ul>
+		<li>{{user_profile.id}}</li>
+		<li>{{user_profile.nom}}</li>
+		<li>{{user_profile.cognoms}}</li>
+		<li>{{user_profile.telefon}}</li>
+		<li>{{user_profile.estudis}}</li>
+		<li>{{user_profile.usuari.id}}</li>
+
+
+	</ul>
+{% endblock %}

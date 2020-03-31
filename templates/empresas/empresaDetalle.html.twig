@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	<h3>{{ page_name }}</h3>
+
+	<div class="card mb-3">
+		<div class="row no-gutters">
+			<div class="col-md-3">
+				<img src="{{ empresa_detall.logo }}" class="card-img" alt="logo">
+			</div>
+			<div class="col-md-8">
+				<div class="card-body">
+					<h5 class="card-title">{{empresa_detall.nom}}</h5>
+					<p class="card-text">Sector empresarial:
+						{{empresa_detall.tipus}}.</p>
+					<p class="card-text">Contacte:
+						{{empresa_detall.correu}}.</p>
+					<p class="card-text">
+						<cite class="text-secondary">
+							<a href="{{ path('ofertas_empresa', {id:empresa_detall.id}) }}" class="card-link text-info">Veure ofertes</a>
+						</cite>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
