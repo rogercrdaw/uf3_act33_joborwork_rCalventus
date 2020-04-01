@@ -6,6 +6,13 @@ use App\Entity\Oferta;
 use App\Entity\Empresa;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\OfertaType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+
+
+
 
 class OfertasController extends AbstractController
 {
@@ -63,6 +70,46 @@ class OfertasController extends AbstractController
             'page_title' => 'Oferta',
             'page_name' => $oferta[0]->getTitol(),
             'oferta_detall' => $oferta[0],
+        ]);
+    }
+
+        /**
+     * Informació espécifica d'una unica oferta
+     * @Route("/ofertas/{id}/editar", name="oferta_editar")
+     */
+    public function editarOferta(int $id, Request $request)
+    {
+
+        $repository = $this->getDoctrine()->getRepository(Oferta::class);
+        $oferta = $repository->findBy(['id' => $id]);
+
+        $form = $this->createForm(OfertaType::class, $oferta[0]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // encode the plain password
+            $oferta[0]->setTitol($form->get('titol')->getData());
+            $oferta[0]->setResum($form->get('resum')->getData());
+            $oferta[0]->setDescripcio($form->get('descripcio')->getData());
+            $oferta[0]->setRequisits($form->get('requisits')->getData());
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($oferta[0]);
+            $entityManager->flush();
+
+            // do anything else you need here, like send an email
+
+            return $this->render('ofertas/ofertaDetalle.html.twig', [
+                'page_title' => 'Oferta',
+                'page_name' => $oferta[0]->getTitol(),
+                'oferta_detall' => $oferta[0],
+            ]);
+        }
+
+        return $this->render('ofertas/ofertaEditar.html.twig', [
+            'page_title' => 'Editar Oferta',
+            'page_name' => 'Editar l\'oferta ' . $oferta[0]->getTitol(),
+            'editarOfertaForm' => $form->createView(),
         ]);
     }
 }

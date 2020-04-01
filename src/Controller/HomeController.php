@@ -7,35 +7,48 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    /**
-     * @Route("/home/{slug}", name="home", defaults={"slug":"home"})
-     */
-    public function index(string $slug)
-    {
 
-        switch ($slug) {
-            case "avis-legal";
-                return $this->render('home/legal.html.twig', [
-                    'page_title' => 'Avis Legal',
-                    'page_name' => 'Avis Legal',
-                ]);
-                break;
-            case "privacitat-i-cookies";
-                return $this->render('home/privacitat.html.twig', [
-                    'page_title' => 'Privacitat',
-                    'page_name' => 'Ens preocupa la teva privacitat',
-                ]);
-                break;
-            case "condicions-us";
-                return $this->render('home/condicions.html.twig', [
-                    'page_title' => 'Condicions d\'us',
-                    'page_name' => 'Termes i Condicions d\'us',
-                ]);
-                break;
-        }
+    /**
+     * @Route("/", name="homepage")
+     */
+    public function index()
+    {
         return $this->render('home/home.html.twig', [
             'page_title' => 'Home',
             'page_name' => 'Benvinguts a Job or Work !!',
+        ]);
+    }
+
+    /**
+     * @Route("/avis-legal", name="legal")
+     */
+    public function homeLegal()
+    {
+        return $this->render('home/legal.html.twig', [
+            'page_title' => 'Avis Legal',
+            'page_name' => 'Avis Legal',
+        ]);
+    }
+
+    /**
+     * @Route("/privacitat-i-cookies", name="privacitat")
+     */
+    public function homePrivacitat()
+    {
+        return $this->render('home/privacitat.html.twig', [
+            'page_title' => 'Privacitat',
+            'page_name' => 'Ens preocupa la teva privacitat',
+        ]);
+    }
+
+    /**
+     * @Route("/condicions-us", name="condicions")
+     */
+    public function homeCondicons()
+    {
+        return $this->render('home/condicions.html.twig', [
+            'page_title' => 'Condicions d\'us',
+            'page_name' => 'Termes i Condicions d\'us',
         ]);
     }
 }

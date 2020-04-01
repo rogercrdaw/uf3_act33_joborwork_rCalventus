@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+	{{ form_start(editarOfertaForm) }}
+	<div class="form-group">
+		{{ form_label(editarOfertaForm.titol) }}
+		{{ form_widget(editarOfertaForm.titol, {'attr': {'class': 'form-control'}}) }}
+	</div>
+	<div class="form-group">
+		{{ form_label(editarOfertaForm.resum) }}
+		{{ form_widget(editarOfertaForm.resum, {'attr': {'class': 'form-control', 'rows':4}}) }}
+	</div>
+	<div class="form-group">
+		{{ form_label(editarOfertaForm.descripcio) }}
+		{{ form_widget(editarOfertaForm.descripcio, {'attr': {'class': 'form-control', 'rows':8}}) }}
+	</div>
+	<div class="form-group">
+		{{ form_label(editarOfertaForm.requisits) }}
+		{{ form_widget(editarOfertaForm.requisits, {'attr': {'class': 'form-control', 'rows':4}}) }}
+	</div>
+
+	<button class="btn btn-outline-info">Guardar canvis</button>
+	{{ form_end(editarOfertaForm) }}
+{% endblock %}

@@ -3,15 +3,11 @@
 namespace App\Form;
 
 use App\Entity\User;
-use Symfony\Component\DomCrawler\Field\InputFormField;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\RadioType;
 
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -26,6 +22,8 @@ class RegistrationFormType extends AbstractType
             ->add('email')
 
             ->add('plainPassword', PasswordType::class, [
+                'label' => 'Contrasenya',
+
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
@@ -48,10 +46,9 @@ class RegistrationFormType extends AbstractType
                     'Empresa' => 'ROLE_EMPRESA',
                 ],
                 'mapped' => false,
+                'label' => 'Tipus d\'usuari',
 
             ])
-
-
 
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,

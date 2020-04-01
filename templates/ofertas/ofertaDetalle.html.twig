@@ -6,7 +6,24 @@
 	<h3>{{ page_name }}</h3>
 
 	<div class="card border-info mb-3">
-		<h5 class="card-header">{{oferta_detall.titol}}</h5>
+		<h5 class="card-header">{{oferta_detall.titol}}
+
+			{% if app.user %}
+				{% if (app.user.id == oferta_detall.empresa.usuario.id) or is_granted('ROLE_ADMIN') %}
+
+					<span style="position:absolute;right: 1em;">
+						<a class="text-warning" href="{{ path('oferta_editar', {id:oferta_detall.id}, 'editar') }}" alt="Editar oferta" title="Editar oferta">
+							<i class="fa fa-pencil"></i>
+						</a>&nbsp;
+						<a class="text-danger" href="{{ path('user_update') }}" alt="Eliminar oferta" title="Eliminar oferta">
+							<i class="fa fa-trash"></i>
+						</a>
+					</span>
+
+				{% endif %}
+			{% endif %}
+
+		</h5>
 		<div class="card-body">
 			<p class="card-text text-secondary">{{ oferta_detall.resum }}</p>
 			<hr>

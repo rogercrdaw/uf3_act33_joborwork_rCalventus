@@ -23,9 +23,17 @@ class EmpresasFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
 
+
+
+        //Crear un usuari amb ROLE_ADMIN
+        $admin = new User();
+        $admin->setEmail("admin@inspedralbes.cat")->setRoles(["ROLE_ADMIN"])
+            ->setPassword($this->passwordEncoder->encodePassword($admin, "admin1234"));
+        $manager->persist($admin);
+
         // Array amb les dades de les empreses
         $empresas = [
-            ["carles@enterprise.cat", ["ROLE_EMPRESA"], "carles", "Enterprise Technologies", "Informàtica"],
+            ["carles@iam.cat", ["ROLE_EMPRESA"], "carles", "Enterprise Technologies", "Informàtica"],
             ["diana@techsolutions.com", ["ROLE_EMPRESA"], "diana", "Tech Solutions", "Informàtica"],
             ["jordi@developers.tech", ["ROLE_EMPRESA"], "jordi", "Developers4all", "Informàtica"],
             ["marta@creativestudio.com", ["ROLE_EMPRESA"], "marta", "Creative Studio", "Disseny y Arts Gràfiques"],
@@ -70,10 +78,7 @@ class EmpresasFixtures extends Fixture
             //Crear l'usuari
             $usuari = new User();
             $usuari->setEmail($empresas[$i][0])->setRoles($empresas[$i][1])
-                ->setPassword($this->passwordEncoder->encodePassword(
-                    $usuari,
-                    $empresas[$i][2]
-                ));
+                ->setPassword($this->passwordEncoder->encodePassword($usuari, $empresas[$i][2]));
             $manager->persist($usuari);
 
 
