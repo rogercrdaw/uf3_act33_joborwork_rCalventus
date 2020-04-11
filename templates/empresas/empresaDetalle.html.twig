@@ -1,24 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-
-	<h3>{{ page_name }}</h3>
+{% block content %}
 
 	<div class="card mb-3">
 		<div class="row no-gutters">
 			<div class="col-md-3">
-				<img src="{{ empresa_detall.logo }}" class="card-img" alt="logo">
+				{% if empresa_detall.logo == null %}
+					<img src="../../img/img_avatar3.png" class="card-img" alt="logo">
+				{% else %}
+					<img src="{{ empresa_detall.logo }}" class="card-img" alt="logo">
+				{% endif %}
 			</div>
-			<div class="col-md-8">
+			<div class="col-md-9">
 				<div class="card-body">
-					<h5 class="card-title">{{empresa_detall.nom}}</h5>
+					<h5 class="card-title">{{empresa_detall.nom}}
+						{% if (app.user == empresa_detall.usuario) or is_granted('ROLE_ADMIN') %}
+							<span style="position:absolute;right: 1em;">
+								<a href="{{ path('editar-perfil-empresa', {id:empresa_detall.id}, 'editar') }}" class="text-warning" style="padding-right:0.5em;" alt="Editar perfil" title="Editar perfil">
+									<i class="fa fa-pencil"></i>
+								</a>
+							</span>
+						{% endif %}
+					</h5>
 					<p class="card-text">Sector empresarial:
 						{{empresa_detall.tipus}}.</p>
 					<p class="card-text">Contacte:
 						{{empresa_detall.correu}}.</p>
 					<p class="card-text">
 						<cite class="text-secondary">
-							<a href="{{ path('ofertas_empresa', {id:empresa_detall.id}) }}" class="card-link text-info">Veure ofertes</a>
+							<a href="{{ path('ofertas-empresa', {id:empresa_detall.id}) }}" class="card-link text-info">Veure ofertes</a>
 						</cite>
 					</p>
 				</div>

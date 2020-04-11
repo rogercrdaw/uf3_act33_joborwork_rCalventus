@@ -1,15 +1,65 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
+{% block content %}
 
-	<ul>
-		<li>{{user_profile.id}}</li>
-		<li>{{user_profile.nom}}</li>
-		<li>{{user_profile.cognoms}}</li>
-		<li>{{user_profile.telefon}}</li>
-		<li>{{user_profile.estudis}}</li>
-		<li>{{user_profile.usuari.id}}</li>
-
-
-	</ul>
+	{{ form_start(editarCandidatForm) }}
+	<div class="alert-danger">
+		{{ form_errors(editarCandidatForm, {'attr': {'style': 'list-style:none;'}}) }}
+	</div>
+	{# DADES CANDIDAT #}
+	<div class="form-group row">
+		<div class="col-lg-4 col-md-6" style="padding-bottom:1em;">
+			{{ form_label(editarCandidatForm.nom) }}
+			{{ form_widget(editarCandidatForm.nom, {'attr': {'class': 'form-control'}}) }}
+		</div>
+		<div class="col-lg-4 col-md-6" style="padding-bottom:1em;">
+			{{ form_label(editarCandidatForm.cognoms) }}
+			{{ form_widget(editarCandidatForm.cognoms, {'attr': {'class': 'form-control'}}) }}
+		</div>
+		<div class="col-lg-4 col-md-12">
+			{{ form_label(editarCandidatForm.telefon) }}
+			{{ form_widget(editarCandidatForm.telefon, {'attr': {'class': 'form-control'}}) }}
+		</div>
+	</div>
+	{# PRESENTACIO CANDIDAT #}
+	<div class="form-group">
+		{{ form_label(editarCandidatForm.presentacio) }}
+		{{ form_widget(editarCandidatForm.presentacio) }}
+	</div>
+	{# ESTUDIS CANDIDAT #}
+	<div class="form-group">
+		{{ form_label(editarCandidatForm.estudis) }}
+		{% for i in 0..3 %}
+			<div class="input-group" style="margin-bottom:0.5em;">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="basic-addon1">{{ i }}.</span>
+				</div>
+				{{ form_widget(editarCandidatForm.estudis[i], {'attr': {'class': 'form-control'}}) }}</div>
+		{% endfor %}
+	</div>
+	{# SOFTSKILLS CANDIDAT #}
+	<div class="form-group mb-3">
+		{{ form_label(editarCandidatForm.softskills) }}
+		<div class="row">
+			{% for i in 0..5 %}
+				<div class="col-lg-4 col-md-6 col-sm-12" style="padding-bottom:5px;">
+					{{ form_widget(editarCandidatForm.softskills[i], {'attr': {'class': 'form-control'}}) }}
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+	{# DATA PUBLICACIO OFERTA #}
+	<div class="form-group mb-3">
+		{{ form_label(editarCandidatForm.hardskills) }}
+		<div class="row">
+			{% for i in 0..11 %}
+				<div class="col-lg-3 col-md-4 col-sm-6" style="padding-bottom:5px;">
+					{{ form_widget(editarCandidatForm.hardskills[i], {'attr': {'class': 'form-control'}}) }}
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+	{# SUBMIT #}
+	<button class="btn btn-outline-info">Guardar canvis</button>
+	{{ form_end(editarCandidatForm) }}
 {% endblock %}

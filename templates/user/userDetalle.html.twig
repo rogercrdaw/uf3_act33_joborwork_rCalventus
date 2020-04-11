@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+	<div
+		class="card border-info mb-3">
+		<!--CANDIDAT HEADER-->
+		<h5 class="card-header">{{candidat_detall.nom}}&nbsp;{{candidat_detall.cognoms}}
+			{% if (app.user.id == candidat_detall.usuari.id) or is_granted('ROLE_ADMIN') %}
+				<span style="position:absolute;right: 1em;">
+					<a href="{{ path('editar-perfil-candidat', {id:candidat_detall.id}, 'editar') }}" class="text-warning" style="padding-right:0.5em;" alt="Editar perfil" title="Editar perfil">
+						<i class="fa fa-pencil"></i>
+					</a>
+				</span>
+			{% endif %}
+		</h5>
+		<!--OFERTA BODY-->
+		<div
+			class="card-body">
+			<!--DADES CANDIDAT-->
+			<p class="card-text text-secondary">{{ candidat_detall.usuari.username }}</p>
+			<p class="card-text text-secondary">{{ candidat_detall.telefon }}</p>
+			<hr>
+			<!--PRESENTACIO CANDIDAT-->
+			{% if candidat_detall.presentacio != null %}
+				<h5 class="card-title">Carta de presentació</h5>
+				<p class="card-text text-secondary">{{ candidat_detall.presentacio }}</p>
+				<hr>
+			{% endif %}
+			<!--ESTUDIS CANDIDAT-->
+			{% if candidat_detall.estudis != null %}
+				<h5 class="card-title">Formació acadèmica</h5>
+				<ul class="card-text text-secondary" style="padding-left: inherit;">
+					{% for curs in candidat_detall.estudis %}
+						{% if curs != null %}
+							<li>{{ curs }}</li>
+						{% endif %}
+					{% endfor %}
+				</ul>
+				<hr>
+			{% endif %}
+			<!--SOFTSKILLS CANDIDAT-->
+			{% if candidat_detall.softskills != null %}
+				<h5 class="card-title">Soft Skills</h5>
+				{% for softskill in candidat_detall.softskills %}
+					{% if softskill != null %}
+						<span class="badge badge-info">{{softskill}}</span>&nbsp;
+					{% endif %}
+				{% endfor %}
+				<hr>
+			{% endif %}
+			<!--HARDSKILLS CANDIDAT-->
+			{% if candidat_detall.hardskills != null %}
+				<h5 class="card-title">Hard Skills</h5>
+				{% for hardskill in candidat_detall.hardskills %}
+					{% if hardskill != null %}
+						<span class="badge badge-info">{{hardskill}}</span>&nbsp;
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

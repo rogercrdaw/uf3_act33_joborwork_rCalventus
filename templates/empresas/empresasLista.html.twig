@@ -1,21 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-
-	<h3>{{ page_name }}</h3>
+{% block content %}
 
 	<table class="table table-hover">
-		<tr class="alert-secondary">
+		<tr class="alert-info">
 			<td>Empresa</td>
 			<td>Tipus</td>
 			<td>Ofertes</td>
 		</tr>
 		{% for empresa in empreses_llista %}
 			<tr>
-				<td><a href="{{ path('empresa_detall', {id:empresa.id}) }}" class="card-link text-info">{{empresa.nom}}</a></td>
+				<td>
+					<a href="{{ path('info-empresa', {id:empresa.usuario.id}) }}" class="card-link text-info">{{empresa.nom}}</a>
+				</td>
 				<td>{{empresa.tipus}}</td>
-				<td>??</td>
+				<td>
+					<a href="{{ path('ofertas-empresa', {id:empresa.id}) }}" class="card-link text-info">
+						veure ofertes publicades
+					</a>
+
+				</td>
 			</tr>
 		{% endfor %}
 	</table>
+
 {% endblock %}

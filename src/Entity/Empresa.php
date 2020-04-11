@@ -49,6 +49,11 @@ class Empresa
      */
     private $ofertas;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $presentacio;
+
     public function __construct()
     {
         $this->ofertas = new ArrayCollection();
@@ -146,6 +151,18 @@ class Empresa
                 $oferta->setEmpresa(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPresentacio(): ?string
+    {
+        return $this->presentacio;
+    }
+
+    public function setPresentacio(?string $presentacio): self
+    {
+        $this->presentacio = $presentacio;
 
         return $this;
     }

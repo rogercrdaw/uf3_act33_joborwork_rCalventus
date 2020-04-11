@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+	{{ form_start(editarEmpresaForm) }}
+	<div class="form-group">
+		{{ form_label(editarEmpresaForm.nom) }}
+		{{ form_widget(editarEmpresaForm.nom, {'attr': {'class': 'form-control'}}) }}
+	</div>
+	<div class="form-group">
+		{{ form_label(editarEmpresaForm.tipus) }}
+		{{ form_widget(editarEmpresaForm.tipus, {'attr': {'class': 'form-control'}}) }}
+	</div>
+	{# <div class="form-group">
+			{{ form_label(editarEmpresaForm.logo) }}
+			{{ form_widget(editarEmpresaForm.logo, {'attr': {'class': 'form-control'}}) }}
+		</div> #}
+	<div class="form-group">
+		{{ form_label(editarEmpresaForm.correu) }}
+		{{ form_widget(editarEmpresaForm.correu, {'attr': {'class': 'form-control'}}) }}
+	</div>
+
+	<button class="btn btn-outline-info">Guardar canvis</button>
+	{{ form_end(editarEmpresaForm) }}
+
+{% endblock %}

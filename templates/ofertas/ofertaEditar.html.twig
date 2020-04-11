@@ -1,26 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
+{% block content %}
 
 
 	{{ form_start(editarOfertaForm) }}
+	<div class="alert-danger">
+		{{ form_errors(editarOfertaForm.resum, {'attr': {'style': 'list-style:none;'}}) }}
+	</div>
+	{# TITOL OFERTA #}
 	<div class="form-group">
 		{{ form_label(editarOfertaForm.titol) }}
 		{{ form_widget(editarOfertaForm.titol, {'attr': {'class': 'form-control'}}) }}
 	</div>
+	{# RESUM OFERTA #}
 	<div class="form-group">
 		{{ form_label(editarOfertaForm.resum) }}
-		{{ form_widget(editarOfertaForm.resum, {'attr': {'class': 'form-control', 'rows':4}}) }}
+		{{ form_widget(editarOfertaForm.resum) }}
 	</div>
+	{# DESCRIPCIO OFERTA #}
 	<div class="form-group">
 		{{ form_label(editarOfertaForm.descripcio) }}
-		{{ form_widget(editarOfertaForm.descripcio, {'attr': {'class': 'form-control', 'rows':8}}) }}
+		{{ form_widget(editarOfertaForm.descripcio) }}
 	</div>
+	{# REQUISITS OFERTA #}
 	<div class="form-group">
 		{{ form_label(editarOfertaForm.requisits) }}
-		{{ form_widget(editarOfertaForm.requisits, {'attr': {'class': 'form-control', 'rows':4}}) }}
+		{% for i in 0..3 %}
+			<div class="input-group" style="margin-bottom:0.5em;">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="basic-addon1">{{ i }}.</span>
+				</div>
+				{{ form_widget(editarOfertaForm.requisits[i], {'attr': {'class': 'form-control'}}) }}
+			</div>
+		{% endfor %}
 	</div>
-
+	{# DATA PUBLICACIO OFERTA #}
+	<div class="form-group">
+		{{ form_label(editarOfertaForm.dataPublicacio) }}
+		{{ form_widget(editarOfertaForm.dataPublicacio,{'choices_attr': {'class': 'custom-select'}}
+		) }}
+	</div>
+	{# SUBMIT #}
 	<button class="btn btn-outline-info">Guardar canvis</button>
 	{{ form_end(editarOfertaForm) }}
+
 {% endblock %}

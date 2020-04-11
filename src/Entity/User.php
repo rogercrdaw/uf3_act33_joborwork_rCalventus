@@ -33,7 +33,7 @@ class User implements UserInterface
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private $password;
+    private $pass;
 
     public function getId(): ?int
     {
@@ -69,7 +69,7 @@ class User implements UserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        // $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
@@ -86,12 +86,12 @@ class User implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return (string) $this->pass;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(string $pass): self
     {
-        $this->password = $password;
+        $this->pass = $pass;
 
         return $this;
     }

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+	<div class="modal-error">
+		<div class="modal-content border-light">
+			<div class="alert alert-danger alert-dismissible fade show" style="margin-bottom:0;">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>Ups! Algo ha anat malament</strong>
+				<hr>
+				{{ error_text }}
+				{# <hr>
+								<cite>
+									<a href="{{ path('app_register') }}" class="card-link text-secondary">Uneix-te al club</a>
+								</cite> #}
+			</div>
+		</div>
+	</div>
+{% endblock %}

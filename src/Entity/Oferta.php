@@ -39,9 +39,9 @@ class Oferta
     private $dataPublicacio;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="json", nullable=true)
      */
-    private $requisits;
+    private $requisits = [];
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Empresa", inversedBy="ofertas")
@@ -53,6 +53,11 @@ class Oferta
      * @ORM\ManyToMany(targetEntity="App\Entity\Candidat", inversedBy="ofertas")
      */
     private $candidats;
+
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $estat;
 
     public function __construct()
     {
@@ -112,12 +117,15 @@ class Oferta
         return $this;
     }
 
-    public function getRequisits(): ?string
+    public function getRequisits(): ?array
     {
+        //Garantitzar que minim hi ha un requisit
+        $requisits[] = [null,null,null,null];
+
         return $this->requisits;
     }
 
-    public function setRequisits(?string $requisits): self
+    public function setRequisits(array $requisits): self
     {
         $this->requisits = $requisits;
 
@@ -158,6 +166,18 @@ class Oferta
         if ($this->candidats->contains($candidat)) {
             $this->candidats->removeElement($candidat);
         }
+
+        return $this;
+    }
+
+    public function getEstat(): ?string
+    {
+        return $this->estat;
+    }
+
+    public function setEstat(string $estat): self
+    {
+        $this->estat = $estat;
 
         return $this;
     }

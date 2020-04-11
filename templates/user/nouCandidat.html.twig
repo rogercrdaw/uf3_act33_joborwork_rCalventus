@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+	{{ form_start(nouCandidatForm) }}
+	{# DADES CANDIDAT #}
+	<div class="form-group row">
+		<div class="col-lg-6" style="padding-bottom:1em;">
+			{{ form_label(nouCandidatForm.nom) }}
+			{{ form_widget(nouCandidatForm.nom, {'attr': {'class': 'form-control'}}) }}
+		</div>
+		<div class="col-lg-6" style="padding-bottom:1em;">
+			{{ form_label(nouCandidatForm.cognoms) }}
+			{{ form_widget(nouCandidatForm.cognoms, {'attr': {'class': 'form-control'}}) }}
+		</div>
+		<div class="col-lg-6" style="padding-bottom:1em;">
+			{{ form_label(nouCandidatForm.email) }}
+			{{ form_widget(nouCandidatForm.email, {'attr': {'class': 'form-control'}}) }}
+		</div>
+		<div class="col-lg-6" style="padding-bottom:1em;">
+			{{ form_label(nouCandidatForm.telefon) }}
+			{{ form_widget(nouCandidatForm.telefon, {'attr': {'class': 'form-control'}}) }}
+		</div>
+		<div class="col-lg-6" style="padding-bottom:1em;">
+			{{ form_label(nouCandidatForm.plainPassword) }}
+			{{ form_widget(nouCandidatForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+		</div>
+	</div>
+	{{ form_widget(nouCandidatForm.agreeTerms, {'attr': {'style': 'padding-left:0.5em;'}}) }}&nbsp;
+	<cite class="text-secondary">
+		He llegit i accepto la&nbsp;<a href="{{ path('privacitat') }}" class="card-link ">politica de privacitat</a>.
+	</cite><br/>
+
+	<button class="btn btn-outline-info" style="margin:2em 0;">Donar-se d'alta</button>
+	<div class="form-group">
+		<div class="alert-danger">
+			{{ form_errors(nouCandidatForm, {'attr': {'style': 'list-style:none;'}}) }}
+		</div>
+	</div>
+	{{ form_end(nouCandidatForm) }}
+	<div class="form-group" style="padding-left:1em;">
+		<cite class="text-secondary">
+			<a href="{{ path('nova-empresa') }}" class="card-link text-success">Ets una empresa i vols donar-te d'alta per publicar les teves ofertes de feina?</a>
+		</cite>
+	</div>
+
+{% endblock %}

@@ -6,8 +6,8 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,16 +15,19 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class RegistrationFormType extends AbstractType
+class AltaCandidatType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class)
+            ->add('email', EmailType::class, [
+                'label' => 'Correu electrònic de contacte',
+                'label_attr' => ['class' => 'text-info'],
+            ])
 
             ->add('plainPassword', PasswordType::class, [
                 'label' => 'Contrasenya',
-
+                'label_attr' => ['class' => 'text-info'],
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
@@ -40,17 +43,24 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-
-            ->add('roles', ChoiceType::class, [
-                'choices'  => [
-                    'Usuario' => 'ROLE_USER',
-                    'Empresa' => 'ROLE_EMPRESA',
-                ],
+            ->add('nom', TextType::class, [
+                'label' => 'Nom',
+                'label_attr' => ['class' => 'text-info'],
                 'mapped' => false,
-                'label' => 'Tipus d\'usuari',
 
             ])
+            ->add('cognoms', TextType::class, [
+                'label' => 'Cognoms',
+                'label_attr' => ['class' => 'text-info'],
+                'mapped' => false,
 
+            ])
+            ->add('telefon', NumberType::class, [
+                'label' => 'Telefon de contacte',
+                'label_attr' => ['class' => 'text-info'],
+                'mapped' => false,
+
+            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [

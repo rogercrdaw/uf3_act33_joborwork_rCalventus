@@ -34,9 +34,9 @@ class Candidat
     private $telefon;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="json", nullable=true)
      */
-    private $estudis;
+    private $estudis = [];
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\User", cascade={"persist", "remove"})
@@ -48,6 +48,21 @@ class Candidat
      * @ORM\ManyToMany(targetEntity="App\Entity\Oferta", mappedBy="candidats")
      */
     private $ofertas;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $presentacio;
+
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $hardskills = [];
+
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $softskills = [];
 
     public function __construct()
     {
@@ -95,12 +110,14 @@ class Candidat
         return $this;
     }
 
-    public function getEstudis(): ?string
+    public function getEstudis(): ?array
     {
+        // Si la base de dades retorna null
+        // $estudis[] = ["", "", "", ""];
         return $this->estudis;
     }
 
-    public function setEstudis(?string $estudis): self
+    public function setEstudis(array $estudis): self
     {
         $this->estudis = $estudis;
 
@@ -143,6 +160,42 @@ class Candidat
             $this->ofertas->removeElement($oferta);
             $oferta->removeCandidat($this);
         }
+
+        return $this;
+    }
+
+    public function getPresentacio(): ?string
+    {
+        return $this->presentacio;
+    }
+
+    public function setPresentacio(?string $presentacio): self
+    {
+        $this->presentacio = $presentacio;
+
+        return $this;
+    }
+
+    public function getHardskills(): ?array
+    {
+        return $this->hardskills;
+    }
+
+    public function setHardskills(?array $hardskills): self
+    {
+        $this->hardskills = $hardskills;
+
+        return $this;
+    }
+
+    public function getSoftskills(): ?array
+    {
+        return $this->softskills;
+    }
+
+    public function setSoftskills(?array $softskills): self
+    {
+        $this->softskills = $softskills;
 
         return $this;
     }

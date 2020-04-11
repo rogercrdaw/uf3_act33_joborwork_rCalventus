@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+	{{ form_start(novaEmpresaForm) }}
+	{# DADES EMPRESA #}
+	<div class="form-group row">
+		<div class="col-lg-12" style="padding-bottom:1em;">
+			{{ form_label(novaEmpresaForm.nom) }}
+			{{ form_widget(novaEmpresaForm.nom, {'attr': {'class': 'form-control'}}) }}
+		</div>
+		<div class="col-lg-12" style="padding-bottom:1em;">
+			{{ form_label(novaEmpresaForm.tipus) }}
+			{{ form_widget(novaEmpresaForm.tipus, {'attr': {'class': 'form-control'}}) }}
+		</div>
+		<div class="col-lg-6" style="padding-bottom:1em;">
+			{{ form_label(novaEmpresaForm.email) }}
+			{{ form_widget(novaEmpresaForm.email, {'attr': {'class': 'form-control'}}) }}
+		</div>
+		<div class="col-lg-6" style="padding-bottom:1em;">
+			{{ form_label(novaEmpresaForm.plainPassword) }}
+			{{ form_widget(novaEmpresaForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+		</div>
+	</div>
+
+	{{ form_widget(novaEmpresaForm.agreeTerms, {'attr': {'style': 'padding-left:0.5em;'}}) }}&nbsp;
+	<cite class="text-secondary">
+		He llegit i accepto la&nbsp;<a href="{{ path('privacitat') }}" class="card-link ">politica de privacitat</a>.
+	</cite><br/>
+
+	<button class="btn btn-outline-info" style="margin:2em 0;">Donar-se d'alta</button>
+	<div class="form-group">
+		<div class="alert-danger">
+			{{ form_errors(novaEmpresaForm, {'attr': {'style': 'list-style:none;'}}) }}
+		</div>
+	</div>
+	{{ form_end(novaEmpresaForm) }}
+	<div class="form-group" style="padding-left:1em;">
+		<cite class="text-secondary">
+			<a href="{{ path('nou-candidat') }}" class="card-link text-indigo">Si no ets una empresa, dona't d'alta com a usuari demandant d'ocupacio</a>
+		</cite>
+	</div>
+
+{% endblock %}

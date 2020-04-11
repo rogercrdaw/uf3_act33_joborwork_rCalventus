@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html>
 
-{% block header %}{{ include('header.html.twig') }}{% endblock %}
+	{% block head %}
+		{{ include('head.html.twig') }}
+	{% endblock %}
+	<body>
+		{% block body %}
 
-{% block body %}
+			{% block navbar %}
+				{{ include('navbar.html.twig') }}
+			{% endblock %}
+			<main>
+				<div class="container" style="padding-top:2em;">
+					<h5 class="page-title text-secondary">{{ page_name }}</h5>
 
+					{% block content %}{% endblock %}
+				</div>
+			</main>
+			{% block footer %}
+				{{ include('footer.html.twig') }}
+			{% endblock %}
+			{% block javascripts %}{% endblock %}
 
-
-
-{% endblock %}    
-
-{% block footer %}{{ include('footer.html.twig') }}{% endblock %}
-
+		{% endblock %}
+	</body>
 </html>

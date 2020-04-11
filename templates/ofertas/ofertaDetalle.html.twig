@@ -1,43 +1,120 @@
 {% extends 'base.html.twig' %}
 
+{% block content %}
 
-{% block body %}
-
-	<h3>{{ page_name }}</h3>
-
-	<div class="card border-info mb-3">
-		<h5 class="card-header">{{oferta_detall.titol}}
+<div
+	class="card border-info mb-3">
+	<!--OFERTA HEADER-->
+	{% if oferta_detall.estat == "pendent" %}
+		<h5 class="card-header alert-warning">{{oferta_detall.titol}}
+		{% else %}
+			<h5 class="card-header">{{oferta_detall.titol}}
+			{% endif %}
 
 			{% if app.user %}
 				{% if (app.user.id == oferta_detall.empresa.usuario.id) or is_granted('ROLE_ADMIN') %}
 
 					<span style="position:absolute;right: 1em;">
-						<a class="text-warning" href="{{ path('oferta_editar', {id:oferta_detall.id}, 'editar') }}" alt="Editar oferta" title="Editar oferta">
+						<a href="{{ path('editar-oferta', {id:oferta_detall.id}, 'editar') }}" class="text-warning" style="padding-right:0.5em;" alt="Editar oferta" title="Editar oferta">
 							<i class="fa fa-pencil"></i>
-						</a>&nbsp;
-						<a class="text-danger" href="{{ path('user_update') }}" alt="Eliminar oferta" title="Eliminar oferta">
+						</a>
+						<a href="{{ path('eliminar-oferta', {id:oferta_detall.id}, 'editar') }}" class="text-danger" alt="Eliminar oferta" title="Eliminar oferta">
 							<i class="fa fa-trash"></i>
 						</a>
 					</span>
 
+				{% elseif is_granted('ROLE_USER') %}
+					<span style="position:absolute;right: 1em; top:0.5em;">
+						{% if inscripcio  %}
+							<a href="{{ path('baixa-oferta', {id:oferta_detall.id}, 'inscripcio') }}" class="btn btn-sm btn-info" style="padding-right:0.5em;" alt="Donar-me de baixa de l'oferta" title="Donar-me de baixa de l'oferta">Donar de baixa de l'oferta</a>
+						{% else %}
+							<a href="{{ path('inscripcio-oferta', {id:oferta_detall.id}, 'inscripcio') }}" class="btn btn-sm btn-success" style="padding-right:0.5em;" alt="Subscripció a l'oferta" title="Subscripció a l'oferta">Inscrire'm a l'oferta</a>
+						{% endif %}
+					</span>
+
 				{% endif %}
+
 			{% endif %}
 
 		</h5>
-		<div class="card-body">
+		<!--OFERTA BODY-->
+		<div
+			class="card-body">
+			<!--RESUM-->
 			<p class="card-text text-secondary">{{ oferta_detall.resum }}</p>
 			<hr>
-			<h5 class="card-title">Descripcio</h5>
-			<p class="card-text text-secondary">{{ oferta_detall.descripcio }}</p>
-			<hr>
-			<h5 class="card-title">Requisits</h5>
-			<p class="card-text text-secondary">{{ oferta_detall.requisits }}</p>
-			<div class="text-right">
-				<cite class="text-right text-secondary">
-					publicada el&nbsp;{{oferta_detall.dataPublicacio|date("d/m/Y")}}&nbsp;por&nbsp;<a href="{{ path('empresa_detall', {id:oferta_detall.empresa.id}) }}" class="card-link text-info">{{ oferta_detall.empresa.nom }}</a>
+			{% if app.user %}
+
+				<!--DESCRIPCIO-->
+				{% if oferta_detall.descripcio != null %}
+					<h5 class="card-title">Descripcio</h5>
+					<p class="card-text text-secondary">{{ oferta_detall.descripcio }}</p>
+					<hr>
+				{% endif %}
+				<!--REQUISITS-->
+				{% if oferta_detall.requisits != null %}
+					<h5 class="card-title">Requisits</h5>
+					<ul class="card-text text-secondary" style="padding-left: inherit;">
+						{% for requisit in oferta_detall.requisits %}
+							{% if requisit != null %}
+								<li>{{ requisit }}</li>
+							{% endif %}
+
+						{% endfor %}
+					</ul>
+					<hr>
+					{% if oferta_detall.estat == "pendent" %}
+						<cite class="text-danger">
+							Aquesta oferta està pendent d'aprovació. En breu un administrador la donarà d'alta
+						</cite>
+						<hr>
+					{% endif %}
+				{% endif %}
+				<!--OFERTA FOOTER (DataPublicacio + Empresa)-->
+				<div class="text-right">
+					<cite class="text-secondary">
+						publicada el&nbsp;{{oferta_detall.dataPublicacio|date("d/m/Y")}}&nbsp;por&nbsp;<a href="{{ path('info-empresa', {id:oferta_detall.empresa.usuario.id}) }}" class="card-link text-info">{{ oferta_detall.empresa.nom }}</a>
+					</cite>
+				</div>
+
+			{% else %}
+				<p class="card-text text-secondary">{{ error_text}}</p>
+				<cite class="text-secondary">
+					<a href="{{ path('nou-candidat') }}" class="card-link text-info">Uneix-te al club</a>
 				</cite>
-			</div>
+			{% endif %}
 		</div>
 	</div>
 
-{% endblock %}
+
+	{% if app.user %}
+		{% if (app.user.id == oferta_detall.empresa.usuario.id) or is_granted('ROLE_ADMIN') %}
+			<div
+				class="card border-info mb-3">
+				<!--CANDIDATS HEADER-->
+				<h5 class="card-header">Usuaris inscrits a l'oferta</h5>
+				<!--CANDIDATS LLISTA de CANDIDATS-->
+				<div class="card-body">
+					<table class="table table-borderless ">
+						{% for candidat in oferta_detall.candidats %}
+							<tr>
+								<td>{{ candidat.nom }}&nbsp;{{ candidat.cognoms }}</td>
+								<td class="text-right">
+									<a href="{{ path('detall-candidat', {id:candidat.usuari.id}) }}" class="card-link text-info">veure perfil del candidat</a>
+								</td>
+								<td class="text-right">
+									<a href="{{oferta_detall.id}}/baixa-candidat/{{candidat.id}}" class="text-danger" alt="Eliminar candidat" title="Eliminar candidat">
+										<i class="fa fa-times"></i>
+									</a>
+									{# <a href="#" class="text-danger" alt="Eliminar candidat" title="Eliminar candidat">
+																											<i class="fa fa-times"></i>
+																										</a> #}
+								</td>
+							</tr>
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+{% endif %}{% endif %}{% endblock %}

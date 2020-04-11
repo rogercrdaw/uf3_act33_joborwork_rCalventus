@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+	<table class="table table-hover">
+		<tr class="alert-secondary">
+			<td>ID</td>
+			<td>Titol</td>
+			<td>Empresa</td>
+			<td>Data Publicacio</td>
+			<td></td>
+			<td></td>
+
+		</tr>
+		{% for oferta in llista_ofertes %}
+			{% if oferta.estat == "publica" %}
+				<tr class="text-success">
+				{% elseif oferta.estat == "pendent" %}
+					<tr class="text-warning">
+					{% endif %}
+
+					<td>{{oferta.id}}</td>
+					<td>{{oferta.titol}}</td>
+					<td>{{oferta.empresa.nom}}</td>
+					<td>{{oferta.dataPublicacio|date("d F Y")}}</td>
+					<td class="text-center">
+						<a href="{{ path('detall-oferta', {id:oferta.id}) }}" class="text-primary" alt="Veure detall oferta" title="Veure detall oferta">
+							<i class="fa fa-search"></i>
+						</a>
+					</td>
+					<td class="text-center">
+						{% if oferta.estat == "publica" %}
+							{# <a href="{{ path('admin-ocultar-oferta', {id:oferta.id}) }}" class="btn-sm btn-warning" alt="Canviar a pendent" title="Canviar a pendent"> #}
+							<a href="{{ path('admin-ocultar-oferta', {id:oferta.id}) }}" class="text-warning" alt="Canviar a pendent" title="Canviar a pendent">
+								<i class="fa fa-times"></i>
+							</a>
+						{% elseif oferta.estat == "pendent" %}
+							{# <a href="{{ path('admin-publicar-oferta', {id:oferta.id}) }}" class="btn-sm btn-success" alt="Publicar oferta" title="Publicar oferta"> #}
+							<a href="{{ path('admin-publicar-oferta', {id:oferta.id}) }}" class="text-success" alt="Publicar oferta" title="Publicar oferta">
+								<i class="fa fa-check"></i>
+							</a>
+						{% endif %}
+					</td>
+				</td>
+			</tr>
+
+		{% endfor %}
+
+	</table>
+{% endblock %}
