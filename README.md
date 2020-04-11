@@ -1,9 +1,9 @@
-# JOBorWORK | Projecet complert Symfony
+# JOBorWORK | Projecte Symfony
 
 
-CFGS Denevolupament d'Applicacions amb tecnologia Web
-M07 Desenvolupament web en entorn servidor
-UF3. Tècniques d’accés a dades 
+CFGS Denevolupament d'Applicacions amb tecnologia Web.
+M07 Desenvolupament web en entorn servidor.
+UF3. Tècniques d’accés a dades.
 
 ## Requisits del projecte 📋
 
@@ -49,9 +49,6 @@ _S'accepten consells i orientacions al respecte_
 * Pujar imatges de foto de perfil (logo empreses)
 
 
-=========================
-
-
 ---
-😵 Fucking Quarantine !!
+😵 Fucking Quarantine !!.
 by RC [InsPedralbes](https://inspedralbes.cat)
