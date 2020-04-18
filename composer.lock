@@ -4668,6 +4668,7 @@
             "description": "Symfony Security Component - Core Library",
             "homepage": "https://symfony.com",
             "time": "2020-03-30T14:14:32+00:00"
+
         },
         {
             "name": "symfony/security-csrf",
