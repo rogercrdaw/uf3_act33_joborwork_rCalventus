@@ -28,8 +28,12 @@ UF3. Tècniques d’accés a dades
 
 ## 🚀 Desplegament 
 Pendent fer el Desplegament en un servidor web púbilc   
-[How to Deploy a Symfony Application](https://symfony.com/doc/current/deployment.html)   
-_S'accepten consells i orientacions al respecte_
+[How to Deploy a Symfony Application](https://symfony.com/doc/current/deployment.html) -> FAIL!   
+_S'accepten consells i orientacions al respecte_   
+**S'ha aconseguit fer el deployment (no en entorn de produccio) pero seguint altres indicacions.**   
+**_La ducumentació de symfony no es massa complerta y poc explicada._**   
+### <span style="color:royalnavy">Podeu veure la demo [JOBorWORK al Labs](http://labs.iam.cat/~a19rogcalrul/joborwork/public/)</span>
+
 
 ## 📌 Objectius assolits 
 * DoctrineManager
