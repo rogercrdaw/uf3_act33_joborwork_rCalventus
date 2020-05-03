@@ -41,7 +41,7 @@ class OfertaType extends AbstractType
             ->add('dataPublicacio', DateType::class, [
                 'label' => 'Fecha de publicacón de la oferta',
                 'attr' => ['class' => 'form-inline'],
-                'format' => 'd&nbsp;&nbsp;M&nbsp;&nbsp;y',
+                'format' => 'dMy',
             ])
 
             ->add('requisits', CollectionType::class, [

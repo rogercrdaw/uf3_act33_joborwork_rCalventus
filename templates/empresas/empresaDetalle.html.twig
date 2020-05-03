@@ -6,7 +6,9 @@
 		<div class="row no-gutters">
 			<div class="col-md-3">
 				{% if empresa_detall.logo == null %}
-					<img src="../../img/img_avatar3.png" class="card-img" alt="logo">
+					{# asset(): <link rel="stylesheet" href="{{ asset('css/joborwork.css') }}"> #}
+					{# asset(): <image src= "{{ asset('img//img_avatar3.png') }}"> </image> #}
+					<img src="{{ asset('img/img_avatar3.png') }}" class="card-img" alt="logo">
 				{% else %}
 					<img src="{{ empresa_detall.logo }}" class="card-img" alt="logo">
 				{% endif %}

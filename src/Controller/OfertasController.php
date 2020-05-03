@@ -26,12 +26,13 @@ class OfertasController extends AbstractController
     public function llistarTotesOfertes()
     {
         $repository = $this->getDoctrine()->getRepository(Oferta::class);
+        $ofertas = $repository->findBy(['estat' => "publica"]);
 
-        //Si l'usuari actual es ADMIN
-        if (in_array("ROLE_ADMIN", $this->getUser()->getRoles())) {
-            $ofertas = $repository->findAll();
-        } else {
-            $ofertas = $repository->findBy(['estat' => "publica"]);
+        //Si hi ha usuari loguegat i es ADMIN, obernir-es totes
+        if ($this->getUser()) {
+            if (in_array("ROLE_ADMIN", $this->getUser()->getRoles())) {
+                $ofertas = $repository->findAll();
+            }
         }
         return $this->render('ofertas/ofertasLista.html.twig', [
             'page_title' => 'Ofertas',

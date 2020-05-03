@@ -69,9 +69,10 @@ footer {
     position: absolute;
     bottom: 0;
     width: -moz-available;
+    width: -webkit-fill-available;
 }
 
 .container {
-    width: 70%;
+    _width: 70%;
     margin: auto;
 }
